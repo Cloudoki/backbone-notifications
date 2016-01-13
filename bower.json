@@ -10,7 +10,7 @@
     "backbone",
     "notifications"
   ],
-  "homepage": "",
+  "homepage": "https://github.com/Cloudoki/backbone-notifications",
   "moduleType": [
     "amd",
     "globals",
