@@ -306,7 +306,6 @@
    *                                       collection initialized
    */
   Notifications.init = function(options) {
-    var elem = $('[data-role="notifications-container"]');
     $('[data-role="notifications"]').on('click', function() {
       instance.view.list.showNotifications();
     });
