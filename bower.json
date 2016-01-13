@@ -1,0 +1,26 @@
+{
+  "name": "backbone-notifications",
+  "description": "Get and Show Notifications with Backbone",
+  "main": "index.js",
+  "authors": [
+    "Délio Amaral"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "backbone",
+    "notifications"
+  ],
+  "homepage": "",
+  "moduleType": [
+    "amd",
+    "globals",
+    "node"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

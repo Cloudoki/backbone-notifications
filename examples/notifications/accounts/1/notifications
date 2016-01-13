@@ -1,0 +1,23 @@
+[{
+  "id": 1,
+  "type": "info",
+  "context": "document",
+  "text": "Jane Doe added a new document.",
+  "state": "unread"
+},
+{
+  "id": 2,
+  "type": "warning",
+  "context": "user",
+  "text": "Dr.Who account was blocked.",
+  "state": "unread"
+},
+{
+  "id": 3,
+  "type": "danger",
+  "context": "document",
+  "text": "Document number 123 was deleted",
+  "state": "read",
+  "created_by": "Dr. Who",
+  "created_date": "20 minutes ago"
+}]
