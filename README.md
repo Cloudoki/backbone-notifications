@@ -9,9 +9,9 @@ Add Notification with Backbone, rendered with Mustache
 
 ## Installation
 
-- **Script Tag:** `<script type="text/javascript" src="https://github.com/Cloudoki/backbone-tags/blob/master/index.js"></script>`
-- **Bower:** `bower install git://github.com/Cloudoki/backbone-tags.git`
-- **npm:** `npm install github:Cloudoki/backbone-tags`
+- **Script Tag:** `<script type="text/javascript" src="https://raw.githubusercontent.com/Cloudoki/backbone-notifications/master/index.js"></script>`
+- **Bower:** `bower install git://github.com/Cloudoki/backbone-notifications.git`
+- **npm:** `npm install github:Cloudoki/backbone-notifications`
 
 ##  Usage
 
