@@ -41,7 +41,7 @@
      */
     url: function() {
       return this.parentModel ? this.parentModel.url() + '/' +
-        (this._url || 'notifications') : undefined;
+        (this._url || 'notifications') : (this._url || 'notifications');
     }
   });
 
