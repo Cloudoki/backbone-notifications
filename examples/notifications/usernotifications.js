@@ -1,4 +1,4 @@
-(function(Backbone, Mustache, _, $, Notifications) {
+(function(Backbone, Mustache, _, Notifications) {
   'use strict';
 
   console.log("Notifications test");
@@ -66,4 +66,4 @@
     console.log('notification fetched', collection);
   });
 
-})(Backbone, Mustache, _, $, Notifications);
+})(Backbone, Mustache, _, Notifications);

@@ -1,12 +1,9 @@
 (function(root, main) {
   // AMD
   if (typeof define === 'function' && define.amd) {
-    define(['backbone', 'mustache', 'underscore'],
-      function(Backbone, Mustache, _) {
-        return main(Backbone, Mustache, _);
-      });
+    define(['backbone', 'mustache', 'underscore'], main);
     // CommonJS
-  } else if (typeof exports !== 'undefined' && typeof require !== 'undefined') {
+  } else if (typeof module !== 'undefined' && module.exports && typeof require !== 'undefined') {
     module.exports = main(require('backbone'), require('mustache'), require('underscore'));
     // Globals
   } else {
