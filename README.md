@@ -77,7 +77,7 @@ The following css classes **must be** defined:
   }
 ```
 
-###Containers
+### Containers
 
 You will need to provide a container where the notifications will be rendered.
 
@@ -87,7 +87,7 @@ You will need to provide a container where the notifications will be rendered.
 
 Add the attribute `data-role="notifications-container"` to an HTML element to make it the notifications container.
 
-###ParentModel
+### ParentModel
 
 You will need an parent model for the notifications to associate with:
 
@@ -106,7 +106,7 @@ You will need an parent model for the notifications to associate with:
 
 ### Initialization
 
-####Notifications.init(options)
+#### Notifications.init(options)
 
 You may use the Notifications.init function for standard use of the plugin
 
@@ -117,7 +117,7 @@ You may use the Notifications.init function for standard use of the plugin
   });
 ```
 
-####Options
+#### Options
 
 When instantiating Notifications there are a number of options you can configure.
 - `parentModel`: The Model that will be the parent of the notifications. **Required**
@@ -132,6 +132,9 @@ To show the notifications an element with the attribute `data-role="notification
   <button class="btn btn-lg btn-default" data-role="notifications"><i class="fa fa-bell"></i></button>
 ```
 When the element is clicked the plugin will fetch and render the notifications. If clicked again it will hide the notifications.
+
+#### Note
+When you click to show the notification a class ```notificationsOn``` is added to the body HTML element. This will allow to add dim effects when the notifications are shown.
 
 ### Listening to notifications triggers:
 
