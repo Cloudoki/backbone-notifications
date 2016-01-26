@@ -241,9 +241,11 @@
      */
     showNotifications: function() {
       if (this.$el.hasClass('hidden')) {
+        $('body').addClass("notificationsOn");
         this.$el.removeClass("hidden").addClass("show");
         this.fetch();
       } else {
+        $('body').removeClass("notificationsOn");
         this.$el.removeClass("show").addClass("hidden");
       }
     },
