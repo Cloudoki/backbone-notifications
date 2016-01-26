@@ -241,13 +241,22 @@
      */
     showNotifications: function() {
       if (this.$el.hasClass('hidden')) {
-        $('body').addClass("notificationsOn");
-        this.$el.removeClass("hidden").addClass("show");
+        this.show();
         this.fetch();
       } else {
-        $('body').removeClass("notificationsOn");
-        this.$el.removeClass("show").addClass("hidden");
+        this.hide();
       }
+    },
+    show: function() {
+      $('body').addClass("notificationsOn");
+      this.$el.removeClass("hidden").addClass("show");
+    },
+    /**
+    * Hides the notifications
+    **/
+    hide: function() {
+      $('body').removeClass("notificationsOn");
+      this.$el.removeClass("show").addClass("hidden");
     },
     /**
      * Fetches the notifications and renders them by default in success

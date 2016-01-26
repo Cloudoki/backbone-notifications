@@ -66,4 +66,12 @@
     console.log('notification fetched', collection);
   });
 
+  // bind show and hide notifications to diferent buttons
+  $('#show').on('click', function(){
+    notifications.view.list.show();
+  });
+  $('#hide').on('click', function(){
+    notifications.view.list.hide();
+  });
+
 })(Backbone, Mustache, _, Notifications);
