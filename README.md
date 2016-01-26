@@ -133,6 +133,21 @@ To show the notifications an element with the attribute `data-role="notification
 ```
 When the element is clicked the plugin will fetch and render the notifications. If clicked again it will hide the notifications.
 
+You can also show and hide the notifications by calling the show/hide methods directly but this will **not fetch** them, only show the ones previously stored and rendered.
+Bellow you can see the example of calling the methods directly.
+
+```javascript
+// call the show and hide methods directly without fetching the notifications
+$('#show').on('click', function(){
+  // call show method
+  notifications.view.list.show();
+});
+$('#hide').on('click', function(){
+  // call hide method
+  notifications.view.list.hide();
+});
+```
+
 #### Note
 When you click to show the notification a class ```notificationsOn``` is added to the body HTML element. This will allow to add dim effects when the notifications are shown.
 

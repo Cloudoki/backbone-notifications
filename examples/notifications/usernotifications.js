@@ -66,11 +66,13 @@
     console.log('notification fetched', collection);
   });
 
-  // bind show and hide notifications to diferent buttons
+  // call the show and hide methods directly without fetching the notifications
   $('#show').on('click', function(){
+    // call show method
     notifications.view.list.show();
   });
   $('#hide').on('click', function(){
+    // call hide method
     notifications.view.list.hide();
   });
 
