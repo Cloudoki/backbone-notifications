@@ -5,7 +5,6 @@ Add Notification with Backbone, rendered with Mustache
 ##Features
 
 - Customizable generated view Template
-- S
 - Association with a specific parent model
 
 ## Requirements
