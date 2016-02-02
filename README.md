@@ -2,14 +2,23 @@
 
 Add Notification with Backbone, rendered with Mustache
 
+##Features
+
+- Customizable generated view Template
+- S
+- Association with a specific parent model
+
 ## Requirements
 
-- [backbonejs](http://backbonejs.org/)
+- [backbonejs](http://backbonejs.org/) and [underscorejs](http://underscorejs.org/)
 - [mustache.js](https://github.com/janl/mustache.js)
+
+#### Note
+The [example](https://github.com/Cloudoki/backbone-notifications/tree/master/examples/notifications) also uses [jQuery](https://jquery.com/), [FontAwesome](http://fortawesome.github.io/Font-Awesome/) and [Twitter Bootstrap](http://getbootstrap.com/) but these are included in it.
 
 ## Installation
 
-- **Script Tag:** `<script type="text/javascript" src="https://raw.githubusercontent.com/Cloudoki/backbone-notifications/master/index.js"></script>`
+- **Script Tag:** `<script type="text/javascript" src="https://cdn.rawgit.com/Cloudoki/backbone-notifications/master/index.js"></script>`
 - **Bower:** `bower install git://github.com/Cloudoki/backbone-notifications.git`
 - **npm:** `npm install github:Cloudoki/backbone-notifications`
 
@@ -22,39 +31,39 @@ You can to provide Mustache templates to be able to render the notifications.
 
 ```javascript
     var templates = {
-    notification: '<div class="list-group-item">\
-                    <small>This is an example template</small>\
-                    <button type="button" class="close" aria-label="Close">\
-                      <span aria-hidden="true"><i class="fa fa-trash-o"></i></span>\
-                    </button>\
-                    <div class="row">\
-                      <div class="col-md-1 col-xs-1 {{state}}" data-role="state"></div>\
-                      <div class="col-md-2 col-xs-2">\
-                        <span class="fa-stack fa-lg text-{{type}}">\
-                          <i class="fa fa-circle fa-stack-2x"></i>\
-                          <i class="fa cp-{{context}} fa-stack-1x fa-inverse"></i>\
-                        </span>\
-                      </div>\
-                      <div class="col-md-9 col-xs-9">\
-                        <div class="row">\
-                          <div class="col-md-12 col-xs-12">\
-                            {{text}}\
-                          </div>\
-                          {{#created_date}}\
-                          <div class="col-md-6 col-xs-6">\
-                            <small><i class="fa fa-clock-o fa-fw"></i>{{created_date}}</small>\
-                          </div>\
-                          {{/created_date}}\
-                          {{#created_by}}\
-                          <div class="col-md-6 col-xs-6">\
-                            <small>{{created_by}}</small>\
-                          </div>\
-                          {{/created_by}}\
-                        </div>\
-                        <a class="btn btn-sm pull-right" data-role="markread">mark as read</a>\
-                      </div>\
-                    </div>\
-                  </div>'
+    notification: '<div class="list-group-item">' +
+                    '<small>This is an example template</small>' +
+                    '<button type="button" class="close" aria-label="Close">' +
+                      '<span aria-hidden="true"><i class="fa fa-trash-o"></i></span>' +
+                    '</button>' +
+                    '<div class="row">' +
+                      '<div class="col-md-1 col-xs-1 {{state}}" data-role="state"></div>' +
+                      '<div class="col-md-2 col-xs-2">' +
+                        '<span class="fa-stack fa-lg text-{{type}}">' +
+                          '<i class="fa fa-circle fa-stack-2x"></i>' +
+                          '<i class="fa cp-{{context}} fa-stack-1x fa-inverse"></i>' +
+                        '</span>' +
+                      '</div>' +
+                      '<div class="col-md-9 col-xs-9">' +
+                        '<div class="row">' +
+                          '<div class="col-md-12 col-xs-12">' +
+                            '{{text}}' +
+                          '</div>' +
+                          '{{#created_date}}' +
+                          '<div class="col-md-6 col-xs-6">' +
+                            '<small><i class="fa fa-clock-o fa-fw"></i>{{created_date}}</small>' +
+                          '</div>' +
+                          '{{/created_date}}' +
+                          '{{#created_by}}' +
+                          '<div class="col-md-6 col-xs-6">' +
+                            '<small>{{created_by}}</small>' +
+                          '</div>' +
+                          '{{/created_by}}' +
+                        '</div>' +
+                        '<a class="btn btn-sm pull-right" data-role="markread">mark as read</a>' +
+                      '</div>' +
+                    '</div>' +
+                  '</div>'
   };
 ```
 
@@ -151,9 +160,9 @@ $('#hide').on('click', function(){
 #### Note
 When you click to show the notification a class ```notificationsOn``` is added to the body HTML element. This will allow to add dim effects when the notifications are shown.
 
-### Listening to notifications triggers:
+### Listening to notifications triggered events:
 
-There are 4 events that the tags view emits:
+There are 3 events that the notifications view emits:
 - **'notification:markread'**: when a notification is marked as read
 - **'notification:destroy'**: when a notifications is remove from the collection
 - **'notification:fetch'**: when the notifications are fetch successfully

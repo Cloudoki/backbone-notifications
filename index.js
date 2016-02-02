@@ -1,15 +1,18 @@
-(function(root, main) {
+(function (root, main) {
   // AMD
   if (typeof define === 'function' && define.amd) {
-    define(['backbone', 'mustache', 'underscore'], main);
+    define(['backbone', 'mustache', 'underscore', 'jquery'], main);
     // CommonJS
   } else if (typeof module !== 'undefined' && module.exports && typeof require !== 'undefined') {
-    module.exports = main(require('backbone'), require('mustache'), require('underscore'));
+    module.exports = main(require('backbone'), require('mustache'),
+      require('underscore'), require('jquery'));
     // Globals
   } else {
-    root.Notifications = main(root.Backbone, root.Mustache, root._);
+    /* eslint-disable no-param-reassign */
+    root.Notifications = main(root.Backbone, root.Mustache, root._, root.$);
+    /* eslint-enable no-param-reassign */
   }
-})(this, function(Backbone, Mustache, _) {
+})(this, function (Backbone, Mustache, _, $) {
   'use strict';
   // Base plugin without prototype
   var Notifications = Object.create(null);
@@ -31,7 +34,7 @@
    */
   Notifications.Collection = Backbone.Collection.extend({
     model: Notifications.Model,
-    initialize: function(models, options) {
+    initialize: function (models, options) {
       this.parentModel = options.parentModel;
       this._url = options.url;
     },
@@ -39,7 +42,7 @@
      * Associated collection URL with the parent Model URL
      * @return {string | undefined}
      */
-    url: function() {
+    url: function () {
       return this.parentModel ? this.parentModel.url() + '/' +
         (this._url || 'notifications') : (this._url || 'notifications');
     }
@@ -50,38 +53,38 @@
    * @type {Object}
    */
   Notifications.Templates = {
-    notification: '<div class="list-group-item">\
-                    <button type="button" class="close" aria-label="Close">\
-                      <span aria-hidden="true"><i class="fa fa-trash-o"></i></span>\
-                    </button>\
-                    <div class="row">\
-                      <div class="col-md-1 col-xs-1 {{state}}" data-role="state"></div>\
-                      <div class="col-md-2 col-xs-2">\
-                        <span class="fa-stack fa-lg text-{{type}}">\
-                          <i class="fa fa-circle fa-stack-2x"></i>\
-                          <i class="fa cp-{{context}} fa-stack-1x fa-inverse"></i>\
-                        </span>\
-                      </div>\
-                      <div class="col-md-9 col-xs-9">\
-                        <div class="row">\
-                          <div class="col-md-12 col-xs-12">\
-                            {{text}}\
-                          </div>\
-                          {{#created_date}}\
-                          <div class="col-md-6 col-xs-6">\
-                            <small><i class="fa fa-clock-o fa-fw"></i>{{created_date}}</small>\
-                          </div>\
-                          {{/created_date}}\
-                          {{#created_by}}\
-                          <div class="col-md-6 col-xs-6">\
-                            <small>{{created_by}}</small>\
-                          </div>\
-                          {{/created_by}}\
-                        </div>\
-                        <a class="btn btn-sm pull-right" data-role="markread">mark as read</a>\
-                      </div>\
-                    </div>\
-                  </div>'
+    notification: '<div class="list-group-item">' +
+                    '<button type="button" class="close" aria-label="Close">' +
+                      '<span aria-hidden="true"><i class="fa fa-trash-o"></i></span>' +
+                    '</button>' +
+                    '<div class="row">' +
+                      '<div class="col-md-1 col-xs-1 {{state}}" data-role="state"></div>' +
+                      '<div class="col-md-2 col-xs-2">' +
+                        '<span class="fa-stack fa-lg text-{{type}}">' +
+                          '<i class="fa fa-circle fa-stack-2x"></i>' +
+                          '<i class="fa cp-{{context}} fa-stack-1x fa-inverse"></i>' +
+                        '</span>' +
+                      '</div>' +
+                      '<div class="col-md-9 col-xs-9">' +
+                        '<div class="row">' +
+                          '<div class="col-md-12 col-xs-12">' +
+                            '{{text}}' +
+                          '</div>' +
+                          '{{#created_date}}' +
+                          '<div class="col-md-6 col-xs-6">' +
+                            '<small><i class="fa fa-clock-o fa-fw"></i>{{created_date}}</small>' +
+                          '</div>' +
+                          '{{/created_date}}' +
+                          '{{#created_by}}' +
+                          '<div class="col-md-6 col-xs-6">' +
+                            '<small>{{created_by}}</small>' +
+                          '</div>' +
+                          '{{/created_by}}' +
+                        '</div>' +
+                        '<a class="btn btn-sm pull-right" data-role="markread">mark as read</a>' +
+                      '</div>' +
+                    '</div>' +
+                  '</div>'
   };
 
   // Initializing the views as an object without prototype
@@ -97,7 +100,8 @@
    *
    * @param {object} options            Backbone.View options
    * @param {object} options.model      this view expects an model
-   * @param {object} options.markread   options used on the Notifications.Model.save with patch:true method
+   * @param {object} options.markread   options used on the Notifications.Model.save
+   *                                    with patch:true method
    *                                    {@link http://backbonejs.org/#Model-save}
    * @param {object} options.destroy    options used on the Notifications.Model.destroy
    *                                    {@link http://backbonejs.org/#Model-destroy}
@@ -109,7 +113,7 @@
       'click .close': 'destroy',
       'click [data-role="markread"]': 'markRead'
     },
-    initialize: function(options) {
+    initialize: function (options) {
       var self = this;
       self.options = _.clone(options, true) || {};
       this.templates = options.templates;
@@ -119,7 +123,7 @@
       //  options.destroy.wait is true by default
       self.options.markread = _.defaults({
         // on successfull save
-        success: function(model, response) {
+        success: function (model) {
           // remove the notification unread icon and mark as read button
           this.$el.find('.unread').removeClass('unread').addClass('read');
           this.$el.find('[data-role="markread"]').remove();
@@ -146,7 +150,7 @@
       //  will call the destroy.success if it was provided and
       //  options.destroy.wait is true by default
       self.options.destroy = _.defaults({
-        success: function(model, response) {
+        success: function (model) {
           self.remove();
           /**
            * Indicates that the notification was destroyed
@@ -171,7 +175,7 @@
      *
      * @return {Notifications.View}
      */
-    render: function() {
+    render: function () {
       this.$el.html(Mustache.render(this.templates.notification, this.model.toJSON()));
       // check if the element has the class unread and removes the element with
       // data-role markread if it doesn't
@@ -185,7 +189,7 @@
      *
      * @fires Notifications.Views#notification:destroy
      */
-    destroy: function() {
+    destroy: function () {
       this.model.destroy(this.options.destroy);
     },
     /**
@@ -193,9 +197,9 @@
      *
      * @fires Notifications.Views#notification:markread
      */
-    markRead: function() {
+    markRead: function () {
       this.model.save({
-        "unread": false
+        unread: false
       }, this.options.markread);
     }
   });
@@ -205,14 +209,15 @@
    *
    * @param {object} options             Backbone.View options
    * @param {Notifications.Collection}   options.collection
-   * @param {object} options.templates   Mustache templates to be used for rendering the notification view
+   * @param {object} options.templates   Mustache templates to be used for rendering
+   *                                     the notification view
    * @param {object} options.fetch       options used on the Notifications.Collections.fetch method
    *                                     {@link http://backbonejs.org/#Collection-fetch}
    *
    * @return {Backbone.View}
    */
   Notifications.Views.List = Backbone.View.extend({
-    initialize: function(options) {
+    initialize: function (options) {
       var self = this;
       self.options = _.clone(options, true) || {};
       this.collection = options.collection;
@@ -223,12 +228,12 @@
       // options.fetch.wait to true by default
       self.options.fetch = _.defaults({
         // on successful fetch
-        success: function(collection, response, options) {
+        success: function (collection, response, opts) {
           // render all the notifications in container
           self.render();
 
-          if (options.fetch && options.fetch.success) {
-            options.fetch.success.apply(this, arguments);
+          if (opts.fetch && options.fetch.success) {
+            opts.fetch.success.apply(this, arguments);
           }
         }
       }, options.fetch, {
@@ -239,7 +244,7 @@
      * Toggle function that hides or fetches and shows the notifications
      *
      */
-    showNotifications: function() {
+    showNotifications: function () {
       if (this.$el.hasClass('hidden')) {
         this.show();
         this.fetch();
@@ -247,23 +252,23 @@
         this.hide();
       }
     },
-    show: function() {
-      $('body').addClass("notificationsOn");
-      this.$el.removeClass("hidden").addClass("show");
+    show: function () {
+      $('body').addClass('notificationsOn');
+      this.$el.removeClass('hidden').addClass('show');
     },
     /**
     * Hides the notifications
     **/
-    hide: function() {
-      $('body').removeClass("notificationsOn");
-      this.$el.removeClass("show").addClass("hidden");
+    hide: function () {
+      $('body').removeClass('notificationsOn');
+      this.$el.removeClass('show').addClass('hidden');
     },
     /**
      * Fetches the notifications and renders them by default in success
      *
      */
-    fetch: function() {
-      this.$el.html("");
+    fetch: function () {
+      this.$el.html('');
       this.collection.fetch(this.options.fetch);
       this.trigger('notification:fetch', this.collection);
     },
@@ -274,17 +279,17 @@
      *
      * @param  {Backbone.model}
      */
-    renderNotification: function(item) {
+    renderNotification: function (item) {
       var self = this;
       var notificationView = new Notifications.Views.Notification({
         model: item,
         templates: this.templates
       });
-      notificationView.on('notification:destroy', function(model) {
+      notificationView.on('notification:destroy', function (model) {
         self.collection.remove(notificationView.model);
         self.trigger('notification:destroy', model);
       });
-      notificationView.on('notification:markread', function(model) {
+      notificationView.on('notification:markread', function (model) {
         self.trigger('notification:markread', model);
       });
       this.$el.append(notificationView.render().el);
@@ -294,8 +299,8 @@
      * in the notifications that are also rendered
      * @return {[type]} [description]
      */
-    render: function() {
-      this.collection.each(function(item) {
+    render: function () {
+      this.collection.each(function (item) {
         this.renderNotification(item);
       }, this);
     }
@@ -313,14 +318,14 @@
    * @return {object}                      instance of Notification with views and
    *                                       collection initialized
    */
-  Notifications.init = function(options) {
-    $('[data-role="notifications"]').on('click', function() {
-      instance.view.list.showNotifications();
-    });
-
+  Notifications.init = function (options) {
     var instance = {
       view: {}
     };
+
+    $('[data-role="notifications"]').on('click', function () {
+      instance.view.list.showNotifications();
+    });
 
     instance.collection = new Notifications.Collection([], {
       parentModel: options.parentModel,
@@ -334,7 +339,7 @@
     });
 
     return instance;
-  }
+  };
 
   return Notifications;
 });
