@@ -26,7 +26,7 @@ The [example](https://github.com/Cloudoki/backbone-notifications/tree/master/exa
 
 ### Templates
 
-You can to provide Mustache templates to be able to render the notifications.
+You need to provide Mustache templates to be able to render the notifications.
 - `notification`: The template used to render the notification view. How the notifications will look in the Web page.
 
 ```javascript
