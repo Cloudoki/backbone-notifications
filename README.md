@@ -11,9 +11,10 @@ Add Notification with Backbone, rendered with Mustache
 
 - [backbonejs](http://backbonejs.org/) and [underscorejs](http://underscorejs.org/)
 - [mustache.js](https://github.com/janl/mustache.js)
+- [jQuery](https://jquery.com/)
 
 #### Note
-The [example](https://github.com/Cloudoki/backbone-notifications/tree/master/examples/notifications) also uses [jQuery](https://jquery.com/), [FontAwesome](http://fortawesome.github.io/Font-Awesome/) and [Twitter Bootstrap](http://getbootstrap.com/) but these are included in it.
+The [example](https://github.com/Cloudoki/backbone-notifications/tree/master/examples/notifications) also uses [FontAwesome](http://fortawesome.github.io/Font-Awesome/) and [Twitter Bootstrap](http://getbootstrap.com/) but these are included in it.
 
 ## Installation
 
