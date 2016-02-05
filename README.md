@@ -87,13 +87,13 @@ The following css classes **must be** defined:
 
 ### Containers
 
-You will need to provide a container where the notifications will be rendered.
+You will need to provide a container where the notifications will be rendered just like the example bellow.
 
 ```html
 <div class="list-group" data-role="notifications-container"></div>
 ```
 
-Add the attribute `data-role="notifications-container"` to an HTML element to make it the notifications container.
+And add the attribute `data-role="notifications-container"` to the HTML element to make it the container.
 
 ### ParentModel
 
@@ -129,8 +129,11 @@ You may use the Notifications.init function for standard use of the plugin
 
 When instantiating Notifications there are a number of options you can configure.
 - `parentModel`: The Model that will be the parent of the notifications. **Required**
-- `url`: The URL where to get the notifications from.
+- `url`: The URL where to get the notifications from. (default - notifications)
 - `templates`: The templates for rendering the notifications view.
+
+#### Note:
+The URL to get the notifications from will be constructed as 'base URL/parentModel URL/parentModel id/Notifications URL' resulting in the following URL for the example presented 'http://localhost:8080/examples/notifications/accounts/1/notifications'
 
 ### Showing the notifications:
 
@@ -178,3 +181,13 @@ There are 3 events that the notifications view emits:
     console.log('notification fetched', collection);
   });
 ```
+
+### Run Example:
+To run the example provided just run the command:
+```
+npm run example
+```
+In your browser go to the URL http:127.0.0.1:8080 and you should see a list of links to the files. Click examples > notifications and you'll see the working example.
+
+#### Note 
+Since this example is working with dummy data, the 'mark as read' and 'delete' functions will not show any result. They will make DELETE and PATCH request and only update the view on success.

@@ -7,12 +7,13 @@
     "example": "examples"
   },
   "scripts": {
+    "example": "http-server ./",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint index.js examples"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Cloudoki/backbone-notifications"
+    "url": "https://github.com/Cloudoki/backbone-notifications.git"
   },
   "keywords": [
     "backbone",
@@ -26,6 +27,7 @@
   },
   "homepage": "https://github.com/Cloudoki/backbone-notifications",
   "devDependencies": {
+    "http-server": "^0.8.5",
     "eslint": "^1.10.3",
     "eslint-config-airbnb": "^3.1.0"
   }
