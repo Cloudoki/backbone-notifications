@@ -35,7 +35,9 @@
   Notifications.Collection = Backbone.Collection.extend({
     model: Notifications.Model,
     initialize: function (models, options) {
+
       this.parentModel = options.parentModel;
+      this.parameters = options.parameters;
       this._url = options.url;
     },
     /**
@@ -43,8 +45,10 @@
      * @return {string | undefined}
      */
     url: function () {
-      return this.parentModel ? this.parentModel.url() + '/' +
+      var url = this.parentModel ? this.parentModel.url() + '/' +
         (this._url || 'notifications') : (this._url || 'notifications');
+
+        return url + (this.parameters? '?'+$.param(this.parameters): '');
     }
   });
 
@@ -329,6 +333,7 @@
 
     instance.collection = new Notifications.Collection([], {
       parentModel: options.parentModel,
+      parameters: options.parameters,
       url: options.url,
     });
 
