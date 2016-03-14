@@ -38,6 +38,7 @@
 
       this.parentModel = options.parentModel;
       this.parameters = options.parameters;
+      this.parse = options.parse;
       this._url = options.url;
     },
     /**
@@ -272,7 +273,6 @@
      *
      */
     fetch: function () {
-      this.$el.html('');
       this.collection.fetch(this.options.fetch);
       this.trigger('notification:fetch', this.collection);
     },
@@ -304,6 +304,7 @@
      * @return {[type]} [description]
      */
     render: function () {
+      this.$el.html('');
       this.collection.each(function (item) {
         this.renderNotification(item);
       }, this);
@@ -334,6 +335,7 @@
     instance.collection = new Notifications.Collection([], {
       parentModel: options.parentModel,
       parameters: options.parameters,
+      parse: options.parse,
       url: options.url,
     });
 
